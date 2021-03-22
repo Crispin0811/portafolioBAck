@@ -1,6 +1,6 @@
 const cloudinary = require("../config/cloudinary");
 const Portafolio = require("../models/portafolioModel");
-const fs = require("fs");
+const fs = require("fs-extra");
 
 const getPortafolios = async (req, res) => {
   try {
@@ -28,10 +28,8 @@ const addPortafolio = async (req, res) => {
       const { path } = file;
       const newPath = await uploader(path);
       urls.push(newPath);
-      fs.unlinkSync(path);
+      await fs.unlink(path);
     }
-
-    // console.log(urls);
 
     let urlImgs = "";
     if (urls[0] != undefined) {
@@ -59,10 +57,10 @@ const addPortafolio = async (req, res) => {
         });
       })
       .catch((e) => {
-        console.log(e);
+        return res.json({
+          mensaje: "falla guardado",
+        });
       });
-
-    
   } else {
     return res.json({
       mensaje: "falla guardado",
