@@ -57,9 +57,7 @@ const addPortafolio = async (req, res) => {
         });
       })
       .catch((e) => {
-        return res.json({
-          mensaje: "falla guardado",
-        });
+        console.log(e)
       });
   } else {
     return res.json({
