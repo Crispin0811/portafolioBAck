@@ -44,7 +44,7 @@ const addPortafolio = async (req, res) => {
     const tipo = req.body.tipo;
     const urlImg = urlImgs;
 
-    Portafolio.create({
+    await Portafolio.create({
       titulo,
       descripcion,
       urlGit,
