@@ -44,21 +44,32 @@ const addPortafolio = async (req, res) => {
     const tipo = req.body.tipo;
     const urlImg = urlImgs;
 
-    await Portafolio.create({
+    const portafolio = await Portafolio.create({
       titulo,
       descripcion,
       urlGit,
       urlImg,
       tipo,
-    })
-      .then(() => {
-        return res.json({
-          mensaje: "ok guardado",
-        });
-      })
-      .catch((e) => {
-        console.log(e)
+    });
+    // .then(() => {
+    //   return res.json({
+    //     mensaje: "ok guardado",
+    //   });
+    // })
+    // .catch((e) => {
+    //   console.log(e)
+    // });
+
+    if (!portafolio) {
+      return res.json({
+        mensaje: "Falla al guardar",
       });
+    }
+
+    return res.json({
+      mensaje: "ok guardado",
+      portafolio
+    });
   } else {
     return res.json({
       mensaje: "falla guardado",
